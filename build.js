@@ -37,14 +37,30 @@ easyDrone('villiage', function(d) {
 });
 
 easyDrone('city', function(d) {
-    d.cr()
-        .fwd(9)
-        .cc()
-        .turn(1)
-        .cr();
+    d.cityroads()
+        .right(25)
+        .cityroads()
+        .back(25)
+        .cityroads()
+        .left(25)
+        .cityroads();
 });
 
-easyDrone('cr', function(d) {
+easyDrone('cityroads', function(d) {
+    d.road()
+        .fwd(9)
+        .crossing()
+        .turn(1)
+        .road()
+        .turn(-1)
+        .fwd(6)
+        .road()
+        .turn(-1)
+        .fwd(6)
+        .road();
+});
+
+easyDrone('road', function(d) {
     d.box('43:5', 1, 1, 10)
         .left(2)
         .box(blocks.wool.black, 2, 1, 10)
@@ -56,7 +72,7 @@ easyDrone('cr', function(d) {
         .box('43:5', 1, 1, 10);
 });
 
-easyDrone('cc', function(d) {
+easyDrone('crossing', function(d) {
     d.left(5)
         .fwd(1)
         .box(blocks.wool.black, 5, 1, 5);
