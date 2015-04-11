@@ -8,10 +8,10 @@ var easyDrone = function(name, action) {
             d = new Drone();
         }
         d.chkpt(label);
-        action(d);
+        action.apply(this, [d].concat(Array.prototype.slice.call(arguments)));
         d.move(label);
         return d;
-    }
+    };
 
     Drone.extend(name, exports[name]);
 };
@@ -37,6 +37,43 @@ easyDrone('villiage', function(d) {
 });
 
 easyDrone('city', function(d) {
+    d.allcityroads()
+    .allskyscrapers();
+});
+
+easyDrone('allskyscrapers', function(d) {
+    d.right(1)
+    .back(9)
+    .stoneskyscraper(10 + Math.floor(10*Math.random()))
+    .fwd(25)
+    .stoneskyscraper(10 + Math.floor(10*Math.random()))
+    .fwd(25)
+    .stoneskyscraper(10 + Math.floor(10*Math.random()))
+    .right(25)
+    .stoneskyscraper(10 + Math.floor(10*Math.random()))
+    .back(25)
+    .stoneskyscraper(10 + Math.floor(10*Math.random()))
+    .back(25)
+    .stoneskyscraper(10 + Math.floor(10*Math.random()))
+    .right(25)
+    .stoneskyscraper(10 + Math.floor(10*Math.random()))
+    .fwd(25)
+    .stoneskyscraper(10 + Math.floor(10*Math.random()))
+    .fwd(25)
+    .stoneskyscraper(10 + Math.floor(10*Math.random()));
+});
+
+easyDrone('allcityroads', function(d) {
+    d.fourroads()
+    .fwd(50)
+    .fourroads()
+    .right(50)
+    .fourroads()
+    .back(50)
+    .fourroads();
+});
+
+easyDrone('fourroads', function(d) {
     d.cityroads()
         .right(25)
         .cityroads()
@@ -52,10 +89,10 @@ easyDrone('cityroads', function(d) {
         .crossing()
         .turn(1)
         .road()
-        .turn(-1)
+        .turn(3)
         .fwd(6)
         .road()
-        .turn(-1)
+        .turn(3)
         .fwd(6)
         .road();
 });
@@ -76,4 +113,23 @@ easyDrone('crossing', function(d) {
     d.left(5)
         .fwd(1)
         .box(blocks.wool.black, 5, 1, 5);
+});
+
+easyDrone('stoneskyscraper', function(d, floors) {
+    var i;
+    for (i=0; i<floors; i=i+1) {
+        d = d.floor()
+        .up(5);
+    }
+    d.box('4', 18, 1, 18);
+});
+
+easyDrone('floor', function(d) {
+    d.box('4', 18, 1, 18)
+    .up(1)
+    .box0('4', 18, 1, 18)
+    .up(1)
+    .box0('20', 18, 1, 18)
+    .up(1)
+    .box0('4', 18, 2, 18);
 });
