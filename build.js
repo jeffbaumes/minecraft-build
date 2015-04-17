@@ -117,11 +117,28 @@ easyDrone('crossing', function(d) {
 
 easyDrone('stoneskyscraper', function(d, floors) {
     var i;
-    for (i=0; i<floors; i=i+1) {
+    d = d.firstfloor()
+    .up(5);
+    for (i = 0; i < floors - 1; i = i + 1) {
         d = d.floor()
         .up(5);
     }
     d.box('4', 18, 1, 18);
+});
+
+easyDrone('firstfloor', function(d) {
+    d.box('4', 18, 1, 18)
+    .up(1)
+    .box0('4', 18, 1, 18)
+    .up(1)
+    .box0('20', 18, 1, 18)
+    .up(1)
+    .box0('4', 18, 2, 18)
+    .down(2)
+    .right(8)
+    .door2()
+    .left(8)
+    .up(2);
 });
 
 easyDrone('floor', function(d) {
